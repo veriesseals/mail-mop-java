@@ -1,0 +1,74 @@
+# Root configuration — shared by every profile.
+#
+# Spring Boot loads this file first, then the active profile's file on
+# top of it (application-dev.yml or application-prod.yml), with the
+# profile file winning any conflict.
+#
+#   Run dev  (default): ./mvnw spring-boot:run
+#   Run prod:           ./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+# -------------------------------------------------------
+spring:
+
+  # Pulls KEY=VALUE lines from a .env file in the project root when one
+  # exists. .env is gitignored and holds local DB credentials / secrets.
+  # "optional:" means the app still starts if the file is missing.
+  config:
+    import: optional:file:.env[.properties]
+
+  application:
+    name: mail-mop
+
+  # Dev is the default profile — local PostgreSQL, verbose SQL logging.
+  profiles:
+    active: dev
+
+  jpa:
+    # Keep the persistence context out of the view layer; every DB access
+    # happens inside a service method with an explicit @Transactional.
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Flyway owns the schema. Each profile sets `enabled` and, in prod, the
+  # migration credentials. Scripts live in src/main/resources/db/migration.
+  flyway:
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+
+# JSON Web Token settings. The dev fallback secret below is for local work
+# only — application-prod.yml requires JWT_SECRET from the environment with
+# no fallback. Expiration is shortened when the accounts module lands in a
+# later step and a refresh flow backs it.
+jwt:
+  secret: ${JWT_SECRET:mail-mop-local-development-secret-change-me-min-32-bytes}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+# Transactional email (account verification, password reset) via AWS SES.
+# Wired up with the accounts module; inert until then.
+email:
+  from: ${EMAIL_FROM:no-reply@mailmop.app}
+
+app:
+  # Used to build links inside outgoing emails. Defaults to the Vite dev server.
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+
+# OpenAPI / Swagger UI — http://localhost:8080/swagger-ui.html
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  show-actuator: false
+
+security:
+  session-cookie:
+    # Dev serves over plain http, so the auth cookie cannot be Secure-only.
+    # Prod overrides this to true.
+    secure: ${SESSION_COOKIE_SECURE:false}
+  rate-limit:
+    enabled: true

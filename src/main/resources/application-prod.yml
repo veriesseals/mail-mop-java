@@ -1,0 +1,53 @@
+# Prod profile — PostgreSQL.
+# Start:  ./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+#
+# Every value here comes from the environment. Nothing has a dev fallback.
+# -------------------------------------------------------
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT:5432}/${DB_NAME}?sslmode=require
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    # Migrations run as a principal that holds DDL rights. The application's
+    # own datasource above stays DML-only and must not inherit these.
+    user: ${DB_MIGRATION_USERNAME}
+    password: ${DB_MIGRATION_PASSWORD}
+    validate-on-migrate: true
+    clean-disabled: true
+
+# Production never falls back to the local development signing secret.
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+app:
+  frontend-url: ${FRONTEND_URL:https://mailmop.app}
+
+# API docs are an explicit opt-in in production, not on by default.
+springdoc:
+  api-docs:
+    enabled: ${SWAGGER_ENABLED:false}
+  swagger-ui:
+    enabled: ${SWAGGER_ENABLED:false}
+
+security:
+  session-cookie:
+    secure: true

@@ -1,10 +1,24 @@
-### IntelliJ IDEA ###
-out/
-#!**/src/main/**/out/
-#!**/src/test/**/out/
-.kotlin
+HELP.md
 
-### Eclipse ###
+# --- Maven / IDE build output ---
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+build/
+out/
+
+# Maven wrapper: the mvnw scripts and .properties ARE committed;
+# the downloaded jar is not.
+.mvn/wrapper/maven-wrapper.jar
+
+# --- IDEs ---
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# --- Eclipse / STS ---
 .apt_generated
 .classpath
 .factorypath
@@ -12,23 +26,27 @@ out/
 .settings
 .springBeans
 .sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 
-### NetBeans ###
+# --- NetBeans ---
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
-.vscode/
-
-### Mac OS ###
+# --- macOS ---
 .DS_Store
+**/.DS_Store
 
-### Intelli J Project File ###
-/.idea
-*.iml
+# --- Local AI / tooling ---
+.claude/
+
+# --- Local secrets: DB password, JWT secret, provider keys ---
+.env
+.env.*
+!.env.example
+
+# --- React frontend (added in a later step) ---
+mail-mop-react/node_modules/
+mail-mop-react/dist/
+mail-mop-react/.env.local

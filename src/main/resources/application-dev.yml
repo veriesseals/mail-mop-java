@@ -1,0 +1,26 @@
+# Dev profile — local PostgreSQL.
+# Active by default (spring.profiles.active=dev in application.yml).
+# DB_USERNAME / DB_PASSWORD come from the .env file in the project root.
+#
+# This file holds no secrets — only ${ENV_VAR} references — so it is
+# committed, unlike .env.
+# -------------------------------------------------------
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:mailmop}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    show-sql: true
+    hibernate:
+      # Flyway creates and owns every table. Hibernate only checks that the
+      # JPA entity mappings match what Flyway built; it never alters the
+      # schema itself. A mismatch fails startup on purpose.
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
+    # Local dev databases are always built by Flyway from empty, so there
+    # is never a pre-existing schema to baseline over.
+    baseline-on-migrate: false
