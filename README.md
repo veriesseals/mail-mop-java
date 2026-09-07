@@ -73,6 +73,13 @@ Each feature module under `apps/` follows the same shape: `<Entity>.java`,
 
 Built in small, individually verifiable steps.
 
+**Where we left off:** Step 3 complete (`d80387f`). The backend boots, connects
+to local Postgres, applies Flyway V1, and serves `/api/health`,
+`/api/system/status`, `/v3/api-docs`, and Swagger UI. **Next: Step 4** — the
+`accounts` module (ported from CivicID, dual-mode cookie + bearer auth),
+planned as 4a (core: users, roles, JWT, login) then 4b (MFA + refresh-token
+rotation).
+
 - [x] **1. Build foundation** — `pom.xml`: Boot 3.5.16 / Java 17 stack, Postgres, Flyway, Security, JWT, springdoc, AWS KMS/SES, Testcontainers. No GPL dependencies in the shipped artifact.
 - [x] **2. Application skeleton** — `MailMopApplication`, `application.yml` / `-dev` / `-prod` profiles, `.env` loading, Maven wrapper, `.gitignore`. Boots and connects to local Postgres.
 - [x] **3. Shared layer + first migration** — `SecurityConfig`, `HealthController`, `SystemStatusController`, `GlobalExceptionHandler` / `ErrorResponse`, `OpenApiConfig`, and `V1__baseline.sql`. `/api/health`, `/api/system/status`, `/v3/api-docs`, and Swagger UI all return 200; every other route is 401/403.
