@@ -1,0 +1,32 @@
+package com.base256.mailmop.shared.exception;
+
+import java.time.LocalDateTime;
+
+// The single shape every error returned by the Mail Mop API takes —
+// validation failures, 404s, 409 conflicts, 403s, 500s. One format means
+// the frontend needs exactly one error handler.
+//
+// `path` is included so a production log line alone identifies which
+// endpoint failed, without reconstructing it from surrounding context.
+public class ErrorResponse {
+
+    private int status;          // HTTP status code, mirrored into the body
+    private String error;        // reason phrase, e.g. "Not Found", "Conflict"
+    private String message;      // human-readable explanation the service supplied
+    private String path;         // request URI that triggered the error
+    private LocalDateTime timestamp;
+
+    public ErrorResponse(int status, String error, String message, String path) {
+        this.status = status;
+        this.error = error;
+        this.message = message;
+        this.path = path;
+        this.timestamp = LocalDateTime.now();
+    }
+
+    public int getStatus() { return status; }
+    public String getError() { return error; }
+    public String getMessage() { return message; }
+    public String getPath() { return path; }
+    public LocalDateTime getTimestamp() { return timestamp; }
+}

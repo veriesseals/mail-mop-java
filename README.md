@@ -75,7 +75,7 @@ Built in small, individually verifiable steps.
 
 - [x] **1. Build foundation** — `pom.xml`: Boot 3.5.16 / Java 17 stack, Postgres, Flyway, Security, JWT, springdoc, AWS KMS/SES, Testcontainers. No GPL dependencies in the shipped artifact.
 - [x] **2. Application skeleton** — `MailMopApplication`, `application.yml` / `-dev` / `-prod` profiles, `.env` loading, Maven wrapper, `.gitignore`. Boots and connects to local Postgres.
-- [ ] **3. Shared layer + first migration** — `SecurityConfig`, `HealthController`, `GlobalExceptionHandler` / `ErrorResponse`, `OpenApiConfig`, and `V1__baseline.sql`. `/api/health` and Swagger come up green.
+- [x] **3. Shared layer + first migration** — `SecurityConfig`, `HealthController`, `SystemStatusController`, `GlobalExceptionHandler` / `ErrorResponse`, `OpenApiConfig`, and `V1__baseline.sql`. `/api/health`, `/api/system/status`, `/v3/api-docs`, and Swagger UI all return 200; every other route is 401/403.
 - [ ] **4. Accounts module** — `User` / `Role`, JWT filter + util (dual-mode), `AuthController` / `UserController`, `CustomUserDetailsService`, bootstrap admin, `EmailService` (SES), refresh-token rotation, MFA. Ported from CivicID.
 - [ ] **5. Mailboxes module** — `ConnectedMailbox` entity, encrypted OAuth token storage (AES-256-GCM + KMS-wrapped key), `MailProvider` interface + capability flags, connect / disconnect endpoints.
 - [ ] **6. Gmail adapter** — Google API deps, OAuth consent flow, token store, `scan()` (sender/domain aggregation, `List-Unsubscribe` / RFC 8058 one-click detection).
