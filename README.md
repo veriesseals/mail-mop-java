@@ -1,8 +1,8 @@
-# Mail Mop
+# Spam Reaper
 
 Email unsubscribe and mailbox cleanup application by **Base 256 Software LLC**.
 
-Mail Mop keeps a person's inbox junk-free: it scans a connected mailbox, groups
+Spam Reaper keeps a person's inbox junk-free: it scans a connected mailbox, groups
 mail by sender and sending domain, and lets the user safely bulk-unsubscribe —
 confirming **each sender individually** so wanted mail that landed in spam is
 never unsubscribed by mistake — then optionally blocks the sender's domain and
@@ -27,7 +27,7 @@ Status: **pre-release, in active development.** Not yet published.
 - Lombok, springdoc / Swagger UI
 
 **Frontend** (later step)
-- React + Vite, React Router v7, Axios — `mail-mop-react/`
+- React + Vite, React Router v7, Axios — `spam-reaper-react/`
 
 **Mobile** (planned, after web)
 - React Native — Android + iOS, App Store / Play Store targeted. The web
@@ -43,20 +43,20 @@ Status: **pre-release, in active development.** Not yet published.
 ## Project Structure
 
 ```
-mail-mop-java/
+spam-reaper-java/
 ├── src/
 │   ├── main/
-│   │   ├── java/com/base256/mailmop/
+│   │   ├── java/com/base256/spamreaper/
 │   │   │   ├── apps/          # feature modules (accounts, mailboxes, scans, senders, actions, rules, audit)
 │   │   │   ├── shared/        # config, security, email, exception handling
-│   │   │   └── MailMopApplication.java
+│   │   │   └── SpamReaperApplication.java
 │   │   └── resources/
 │   │       ├── application.yml            # base (activates dev profile, loads .env)
 │   │       ├── application-dev.yml        # local Postgres
 │   │       ├── application-prod.yml       # Postgres over SSL, env-only secrets
 │   │       └── db/migration/              # Flyway V1__…, V2__…
 │   └── test/
-├── mail-mop-react/            # React + Vite frontend (later step)
+├── spam-reaper-react/            # React + Vite frontend (later step)
 ├── .env.example              # copy to .env for local dev (.env is gitignored)
 ├── mvnw / mvnw.cmd           # Maven wrapper
 └── pom.xml
@@ -81,7 +81,7 @@ planned as 4a (core: users, roles, JWT, login) then 4b (MFA + refresh-token
 rotation).
 
 - [x] **1. Build foundation** — `pom.xml`: Boot 3.5.16 / Java 17 stack, Postgres, Flyway, Security, JWT, springdoc, AWS KMS/SES, Testcontainers. No GPL dependencies in the shipped artifact.
-- [x] **2. Application skeleton** — `MailMopApplication`, `application.yml` / `-dev` / `-prod` profiles, `.env` loading, Maven wrapper, `.gitignore`. Boots and connects to local Postgres.
+- [x] **2. Application skeleton** — `SpamReaperApplication`, `application.yml` / `-dev` / `-prod` profiles, `.env` loading, Maven wrapper, `.gitignore`. Boots and connects to local Postgres.
 - [x] **3. Shared layer + first migration** — `SecurityConfig`, `HealthController`, `SystemStatusController`, `GlobalExceptionHandler` / `ErrorResponse`, `OpenApiConfig`, and `V1__baseline.sql`. `/api/health`, `/api/system/status`, `/v3/api-docs`, and Swagger UI all return 200; every other route is 401/403.
 - [ ] **4. Accounts module** — `User` / `Role`, JWT filter + util (dual-mode), `AuthController` / `UserController`, `CustomUserDetailsService`, bootstrap admin, `EmailService` (SES), refresh-token rotation, MFA. Ported from CivicID.
 - [ ] **5. Mailboxes module** — `ConnectedMailbox` entity, encrypted OAuth token storage (AES-256-GCM + KMS-wrapped key), `MailProvider` interface + capability flags, connect / disconnect endpoints.
@@ -92,13 +92,13 @@ rotation).
 - [ ] **10. Rules module** — keep-list / block-list, enforced everywhere actions run.
 - [ ] **11. Microsoft Graph adapter** — against the same `MailProvider` interface.
 - [ ] **12. Apple IMAP adapter** — scan + Trash + client-side filter (no unsubscribe/block API).
-- [ ] **13. Web frontend** — scaffold `mail-mop-react/`, then: connect mailbox → run scan → review senders table with checkboxes → confirm-per-sender → results.
+- [ ] **13. Web frontend** — scaffold `spam-reaper-react/`, then: connect mailbox → run scan → review senders table with checkboxes → confirm-per-sender → results.
 - [ ] **14. CI / Docker / compose** — GitHub Actions, multi-stage `Dockerfile`, `docker-compose.yml`, `nginx.conf`.
 
 **Before public launch:** Google OAuth verification + CASA security assessment
 (for the `gmail.modify` restricted scope), Microsoft Graph app registration,
 published privacy policy, `THIRD-PARTY-NOTICES` file, proprietary `LICENSE`,
-USPTO knockout search on the "Mail Mop" name.
+USPTO knockout search on the "Spam Reaper" name.
 
 ---
 
@@ -116,11 +116,11 @@ Maven is **not** required — the repo ships `./mvnw`.
 
 ```sql
 -- psql postgres
-CREATE ROLE mailmop_user WITH LOGIN;
-\password mailmop_user
-CREATE DATABASE mailmop OWNER mailmop_user;
-\c mailmop
-GRANT ALL ON SCHEMA public TO mailmop_user;
+CREATE ROLE spamreaper_user WITH LOGIN;
+\password spamreaper_user
+CREATE DATABASE spamreaper OWNER spamreaper_user;
+\c spamreaper
+GRANT ALL ON SCHEMA public TO spamreaper_user;
 ```
 
 ### 2. Configure `.env`

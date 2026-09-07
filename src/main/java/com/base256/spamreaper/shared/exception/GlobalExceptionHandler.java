@@ -1,4 +1,4 @@
-package com.base256.mailmop.shared.exception;
+package com.base256.spamreaper.shared.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;

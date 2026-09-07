@@ -7,7 +7,7 @@
 # -------------------------------------------------------
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:mailmop}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:spamreaper}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 

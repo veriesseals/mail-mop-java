@@ -1,4 +1,4 @@
-package com.base256.mailmop.shared.health;
+package com.base256.spamreaper.shared.health;
 
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.web.bind.annotation.GetMapping;

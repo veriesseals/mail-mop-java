@@ -47,6 +47,6 @@ out/
 !.env.example
 
 # --- React frontend (added in a later step) ---
-mail-mop-react/node_modules/
-mail-mop-react/dist/
-mail-mop-react/.env.local
+spam-reaper-react/node_modules/
+spam-reaper-react/dist/
+spam-reaper-react/.env.local

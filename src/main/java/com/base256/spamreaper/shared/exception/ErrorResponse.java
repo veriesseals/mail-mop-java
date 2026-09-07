@@ -1,8 +1,8 @@
-package com.base256.mailmop.shared.exception;
+package com.base256.spamreaper.shared.exception;
 
 import java.time.LocalDateTime;
 
-// The single shape every error returned by the Mail Mop API takes —
+// The single shape every error returned by the Spam Reaper API takes —
 // validation failures, 404s, 409 conflicts, 403s, 500s. One format means
 // the frontend needs exactly one error handler.
 //

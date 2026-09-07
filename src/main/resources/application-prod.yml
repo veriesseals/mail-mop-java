@@ -39,7 +39,7 @@ jwt:
   expiration: ${JWT_EXPIRATION:86400000}
 
 app:
-  frontend-url: ${FRONTEND_URL:https://mailmop.app}
+  frontend-url: ${FRONTEND_URL:https://spamreaper.app}
 
 # API docs are an explicit opt-in in production, not on by default.
 springdoc:

@@ -1,4 +1,4 @@
-package com.base256.mailmop.shared.config;
+package com.base256.spamreaper.shared.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

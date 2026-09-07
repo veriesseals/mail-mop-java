@@ -1,4 +1,4 @@
-package com.base256.mailmop.shared.config;
+package com.base256.spamreaper.shared.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI mailMopOpenAPI() {
+    public OpenAPI spamReaperOpenAPI() {
 
         SecurityScheme jwtScheme = new SecurityScheme()
                 .type(SecurityScheme.Type.HTTP)
@@ -30,7 +30,7 @@ public class OpenApiConfig {
 
         return new OpenAPI()
                 .info(new Info()
-                        .title("Mail Mop API")
+                        .title("Spam Reaper API")
                         .version("0.0.1")
                         .description(
                                 "Email unsubscribe and mailbox cleanup API. "
@@ -39,7 +39,7 @@ public class OpenApiConfig {
                         )
                         .contact(new Contact()
                                 .name("Base 256 Software LLC")
-                                .email("support@mailmop.app")
+                                .email("support@spamreaper.app")
                         )
                         .license(new License()
                                 .name("Proprietary — Copyright Base 256 Software LLC")

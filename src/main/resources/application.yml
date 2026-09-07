@@ -16,7 +16,7 @@ spring:
     import: optional:file:.env[.properties]
 
   application:
-    name: mail-mop
+    name: spam-reaper
 
   # Dev is the default profile — local PostgreSQL, verbose SQL logging.
   profiles:
@@ -43,13 +43,13 @@ server:
 # no fallback. Expiration is shortened when the accounts module lands in a
 # later step and a refresh flow backs it.
 jwt:
-  secret: ${JWT_SECRET:mail-mop-local-development-secret-change-me-min-32-bytes}
+  secret: ${JWT_SECRET:spam-reaper-local-development-secret-change-me-min-32-bytes}
   expiration: ${JWT_EXPIRATION:86400000}
 
 # Transactional email (account verification, password reset) via AWS SES.
 # Wired up with the accounts module; inert until then.
 email:
-  from: ${EMAIL_FROM:no-reply@mailmop.app}
+  from: ${EMAIL_FROM:no-reply@spamreaper.app}
 
 app:
   # Used to build links inside outgoing emails. Defaults to the Vite dev server.

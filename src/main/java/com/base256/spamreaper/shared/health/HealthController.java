@@ -1,4 +1,4 @@
-package com.base256.mailmop.shared.health;
+package com.base256.spamreaper.shared.health;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +11,7 @@ public class HealthController {
 
     @GetMapping("/api/health")
     public HealthResponse health() {
-        return new HealthResponse("UP", "mail-mop");
+        return new HealthResponse("UP", "spam-reaper");
     }
 
     public record HealthResponse(String status, String service) {}

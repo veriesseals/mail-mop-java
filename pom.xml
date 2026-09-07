@@ -14,9 +14,9 @@
     </parent>
 
     <groupId>com.base256</groupId>
-    <artifactId>mail-mop</artifactId>
+    <artifactId>spam-reaper</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Mail Mop</name>
+    <name>Spam Reaper</name>
     <description>Email unsubscribe and mailbox cleanup application</description>
 
     <properties>
