@@ -30,4 +30,5 @@ bin/
 .DS_Store
 
 ### Intelli J Project File ###
-.idea
+/.idea
+*.iml
